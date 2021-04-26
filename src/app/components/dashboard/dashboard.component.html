@@ -1,0 +1,168 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-8 col-lg-8">
+            <h1>Users</h1>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4">
+            <button type="button" class="btn btn-block btn-md btn-primary" (click)="addNewUser(addNewUserModal)">
+                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                Add New User
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Full Name</th>
+                            <th>Image</th>
+                            <th>Occupation</th>
+                            <th>Salary Per Hour</th>
+                            <th>Date Created</th>
+                            <th>Archived?</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of users | slice: (page-1) * pageSize : page * pageSize">
+                            <td scope="row">{{user.id}}</td>
+                            <td>{{user.name}}</td>
+                            <td>
+                                <img src="{{user.avatar}}" alt="{{user.name}}" height="50" width="50" />
+                            </td>
+                            <td>
+                                {{user.occupation}}
+                            </td>
+                            <td>
+                                {{user.salaryperhour | currency: 'PHP'}}
+                            </td>
+                            <td>
+                                {{user.createdAt | date: 'short'}}
+                            </td>
+                            <td>
+                                {{user.archived === true ? 'Yes' : 'No'}}
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Options">
+                                    <button type="button" class="btn btn-danger" (click)="deleteUser(user.id)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                        Delete User
+                                    </button>
+                                    <button type="button" class="btn btn-warning"
+                                        (click)="editUser(editUserModal,user)">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        Edit User
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngIf="users.length === 0">
+                            <td colspan="8">
+                                <h2 class="text-center">No Users Found!</h2>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="users.length > 0">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="users.length"></ngb-pagination>
+        </div>
+    </div>
+</div>
+
+<!-- Modals -->
+<ng-template #addNewUserModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Add New User</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('CrossClick')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" name="fullName" id="fullName" class="form-control" [(ngModel)]="userForm.name" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label for="image">Image <small>Copy and paste the URL of the user image here!</small></label>
+                    <input type="url" name="image" id="image" class="form-control" [(ngModel)]="userForm.avatar">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label for="occupation">Occupation</label>
+                    <input type="text" name="occupation" id="occupation" class="form-control"
+                        [(ngModel)]="userForm.occupation" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label for="salaryperhour">Salary Per Hour</label>
+                    <input type="number" name="salaryperhour" id="salaryperhour" class="form-control"
+                        [(ngModel)]="userForm.salaryperhour" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save')">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            Save User
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #editUserModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Update User Details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('CrossClick')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" name="fullName" id="fullName" class="form-control" [(ngModel)]="userForm.name" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label for="image">Image <small>Copy and paste the URL of the user image here!</small></label>
+                    <input type="url" name="image" id="image" class="form-control" [(ngModel)]="userForm.avatar">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label for="occupation">Occupation</label>
+                    <input type="text" name="occupation" id="occupation" class="form-control"
+                        [(ngModel)]="userForm.occupation" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label for="salaryperhour">Salary Per Hour</label>
+                    <input type="number" name="salaryperhour" id="salaryperhour" class="form-control"
+                        [(ngModel)]="userForm.salaryperhour" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save')">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            Update User Details
+        </button>
+    </div>
+</ng-template>

@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="">Main Nav</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll"
+        aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+        <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="max-height: 100px;">
+            <li class="nav-item" [ngClass]="{'active': currentNavActive === 'home'}"
+                (click)="currentNavActive = 'home'">
+                <a class="nav-link" href="" [routerLink]="['/home']" routerLinkActive="router-link-active">Home
+                    <span class="sr-only" *ngIf="currentNavActive === 'home'">(current)</span></a>
+            </li>
+            <li class="nav-item" [ngClass]="{'active': currentNavActive === 'dashboard'}"
+                (click)="currentNavActive = 'dashboard'">
+                <a class="nav-link" href="" [routerLink]="['/dashboard']"
+                    routerLinkActive="router-link-active">Dashboard
+                    <span class="sr-only" *ngIf="currentNavActive === 'dashboard'">(current)</span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="main-container">
+    <router-outlet></router-outlet>
+</div>
