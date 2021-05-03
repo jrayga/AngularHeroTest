@@ -40,7 +40,7 @@
             ]
           },
           "configurations": {
-            "prodBuild": {
+            "productionRelease": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/production/environment.ts",
@@ -67,11 +67,19 @@
                 }
               ]
             },
-            "stagingProd": {
+            "productionDebug": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/staging/environment.ts",
-                  "with": "src/environments/staging/environment.prod.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.production.debug.ts"
+                }
+              ]
+            },
+            "stagingRelease": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -94,11 +102,19 @@
                 }
               ]
             },
-            "developProd": {
+            "stagingDebug": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/develop/environment.ts",
-                  "with": "src/environments/develop/environment.prod.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.debug.ts"
+                }
+              ]
+            },
+            "devRelease": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -118,6 +134,14 @@
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kb",
                   "maximumError": "4kb"
+                }
+              ]
+            },
+            "devDebug": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.debug.ts"
                 }
               ]
             }
@@ -129,14 +153,23 @@
             "browserTarget": "angular-hero:build"
           },
           "configurations": {
-            "production": {
-              "browserTarget": "angular-hero:build:production"
+            "productionRelease": {
+              "browserTarget": "angular-hero:build:productionRelease"
             },
-            "staging": {
-              "browserTarget": "angular-hero:build:staging"
+            "productionDebug": {
+              "browserTarget": "angular-hero:build:productionDebug"
             },
-            "develop": {
-              "browserTarget": "angular-hero:build:develop"
+            "stagingRelease": {
+              "browserTarget": "angular-hero:build:stagingRelease"
+            },
+            "stagingDebug": {
+              "browserTarget": "angular-hero:build:stagingDebug"
+            },
+            "devRelease": {
+              "browserTarget": "angular-hero:build:devRelease"
+            },
+            "devDebug": {
+              "browserTarget": "angular-hero:build:devDebug"
             }
           }
         },
@@ -160,7 +193,11 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.slim.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/sweetalert2/dist/sweetalert2.all.min.js"
+            ]
           }
         },
         "lint": {
@@ -183,16 +220,29 @@
             "devServerTarget": "angular-hero:serve"
           },
           "configurations": {
-            "production": {
-              "devServerTarget": "angular-hero:serve:production"
+            "productionRelease": {
+              "devServerTarget": "angular-hero:build:productionRelease"
             },
-            "staging": {
-              "devServerTarget": "angular-hero:serve:staging"
+            "productionDebug": {
+              "devServerTarget": "angular-hero:build:productionDebug"
             },
-            "develop": {
-              "devServerTarget": "angular-hero:serve:develop"
+            "stagingRelease": {
+              "devServerTarget": "angular-hero:build:stagingRelease"
+            },
+            "stagingDebug": {
+              "devServerTarget": "angular-hero:build:stagingDebug"
+            },
+            "devRelease": {
+              "devServerTarget": "angular-hero:build:devRelease"
+            },
+            "devDebug": {
+              "devServerTarget": "angular-hero:build:devDebug"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }

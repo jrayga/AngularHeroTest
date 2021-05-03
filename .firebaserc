@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "angular-hero-acaa9"
+  },
+  "targets": {
+    "angular-hero-acaa9": {
+      "hosting": {
+        "angular-hero": [
+          "angular-hero-acaa9"
+        ]
+      }
+    }
   }
 }
